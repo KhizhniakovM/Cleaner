@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>249553179648-5bsseig33njtpidh5cv7tmba4lojaq45.apps.googleusercontent.com</string>
+	<string>558330590028-393eooqvcslfrlmt241j49bicu1t8gim.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.249553179648-5bsseig33njtpidh5cv7tmba4lojaq45</string>
+	<string>com.googleusercontent.apps.558330590028-393eooqvcslfrlmt241j49bicu1t8gim</string>
 	<key>API_KEY</key>
-	<string>AIzaSyD-12hyPpxS5ZerI1Idy0MQFtJfb-ZFXq0</string>
+	<string>AIzaSyC2txu4jWaF1uM2iAWV_AHe6qjNE5y5WJc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>249553179648</string>
+	<string>558330590028</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.khizhniakovma.smartCleaner</string>
+	<string>com.ioscleaner.proalexst</string>
 	<key>PROJECT_ID</key>
-	<string>anothercleaner</string>
+	<string>cleaner-eb880</string>
 	<key>STORAGE_BUCKET</key>
-	<string>anothercleaner.appspot.com</string>
+	<string>cleaner-eb880.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:249553179648:ios:4a4453114903fab63534e5</string>
+	<string>1:558330590028:ios:b679c28438cf503884d5e9</string>
 	<key>DATABASE_URL</key>
-	<string>https://anothercleaner.firebaseio.com</string>
+	<string>https://cleaner-eb880.firebaseio.com</string>
 </dict>
 </plist>

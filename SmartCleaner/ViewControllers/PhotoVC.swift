@@ -24,6 +24,7 @@ class PhotoVC: BaseController{
     // MARK: - Properties
     private var lastAssetGroups: [PHAssetGroup] = []
     private var lastAssets: [PHAsset] = []
+    private var mediaManager = MediaManager()
     // MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,7 +129,7 @@ class PhotoVC: BaseController{
     @objc private func onDuplicatePhotos(){
         addInter()
         showProgressHUD(title: "Searching duplicate photos...")
-        MediaManager.loadDuplicatePhotos({[weak self] assetGroups in
+        mediaManager.loadDuplicatePhotos({[weak self] assetGroups in
             guard let self = self else { return }
             self.hideProgressHUD()
             if assetGroups.count == 0 {

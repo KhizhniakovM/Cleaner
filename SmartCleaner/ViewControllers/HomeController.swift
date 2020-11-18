@@ -11,6 +11,7 @@ import UIKit
 import BiometricAuthentication
 import SwiftyUserDefaults
 import Alertift
+import CircleProgressBar
 
 class HomeController: BaseController{
     // MARK: - UI
@@ -18,10 +19,13 @@ class HomeController: BaseController{
     @IBOutlet weak var videoClearView: UIImageView!
     @IBOutlet weak var photoClearView: UIImageView!
     @IBOutlet weak var smartCleaningView: UIView!
+    @IBOutlet weak var circleProgressView: CircleProgressView!
     @IBOutlet weak var spaceLabel: UILabel!
     @IBOutlet weak var percentLabel: UILabel!
-    @IBOutlet weak var proButton: UIBarButtonItem!
+//    @IBOutlet weak var proButton: UIBarButtonItem!
     @IBOutlet weak var mainStack: UIStackView!
+    @IBOutlet weak var mainCircle: CircleProgressBar!
+    @IBOutlet weak var proButton: UIButton!
     
     // MARK: - Properties
     private var lastGroups: [PHAssetGroup] = []
@@ -36,6 +40,7 @@ class HomeController: BaseController{
     }
     // MARK: - Methods
     private func openPaywall() {
+        guard UserDefService.takeValue("isPro") == false else { return }
         self.performSegue(withIdentifier: "SubscriptionSegue", sender: self)
     }
     private func addTouches() {
@@ -49,10 +54,8 @@ class HomeController: BaseController{
         contactClearView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onContactClear)))
     }
     private func setupUI() {
-        proButton.setTitleTextAttributes([
-            NSAttributedString.Key.font: UIFont(name: "SFUIText-Heavy", size: 16)!,
-            NSAttributedString.Key.foregroundColor: UIColor(named: "main")!
-        ], for: .normal)
+        guard UserDefService.takeValue("isPro") == true else { return }
+        proButton.isHidden = true
     }
     private func setupSpace() {
         let used = UIDevice.current.usedDiskSpaceInGB
@@ -61,17 +64,20 @@ class HomeController: BaseController{
         
         percentLabel.text = "\(percentage)"
         spaceLabel.text = "\(used) out of \(total)"
+        
+        circleProgressView.value = percentage
     }
     
-    @IBAction func onSettings(_ sender: UIBarButtonItem) {
-        self.performSegue(withIdentifier: "SettingsSegue", sender: self)
+    @IBAction func onSettings(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "Settings", sender: self)
     }
-    @IBAction func onSubscription(_ sender: UIBarButtonItem) {
+    @IBAction func onSubscription(_ sender: UIButton) {
         self.performSegue(withIdentifier: "SubscriptionSegue", sender: self)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "VideoListSegue", let vc = segue.destination as? GroupedAssetListVC {
             vc.assetGroups = lastGroups
+            vc.isVideos = true
         }
     }
     // MARK: - @objc methods

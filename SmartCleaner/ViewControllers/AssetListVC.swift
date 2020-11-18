@@ -19,10 +19,10 @@ class AssetListVC: BaseController {
     public var assets: [PHAsset] = []
     private var checkedPhotos: [Int] = []
     var smartClean: Bool?
-    let columnLayout = ColumnFlowLayout(cellsPerRow: 3,
-                                        minimumInteritemSpacing: 10,
-                                        minimumLineSpacing: 10,
-                                        sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+    let columnLayout = ColumnFlowLayout(cellsPerRow: 4,
+                                        minimumInteritemSpacing: 1,
+                                        minimumLineSpacing: 1,
+                                        sectionInset: UIEdgeInsets(top: 0.5, left: 0.5, bottom: 0.5, right: 0.5))
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -30,11 +30,14 @@ class AssetListVC: BaseController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.register(UINib(nibName: "PhotoCell", bundle: nil), forCellWithReuseIdentifier: "PhotoCell")
+        self.collectionView.register(CollectionReusableView.nib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionReusableView.identifire)
         self.collectionView.collectionViewLayout = columnLayout
         self.navbar.topItem?.title = "Nothing selected"
     }
     // MARK: - Methods
+    
     private func openPaywall() {
+        guard UserDefService.takeValue("isPro") == false else { return }
         guard smartClean ?? false else { return }
         self.performSegue(withIdentifier: "SubscriptionSegue", sender: self)
     }
@@ -73,7 +76,16 @@ class AssetListVC: BaseController {
     }
 }
 // MARK: - Extensions
-extension AssetListVC: UICollectionViewDelegate, UICollectionViewDataSource{
+extension AssetListVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionReusableView.identifire, for: indexPath) as? CollectionReusableView else { fatalError() }
+        view.numberOfPhotos.text = "\(assets.count) photos"
+        return view
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: self.view.frame.width, height: 100)
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -99,6 +111,8 @@ extension AssetListVC: UICollectionViewDelegate, UICollectionViewDataSource{
         self.navbar.topItem?.title = "\(self.checkedPhotos.count == 0 ? "Nothing" : "\(self.checkedPhotos.count)") selected"
         self.collectionView.reloadItems(at: [indexPath])
     }
+    
+    
 }
 
 protocol AssetListDelegate: class {

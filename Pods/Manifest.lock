@@ -1,35 +1,49 @@
 PODS:
   - Alertift (4.1.1)
-  - BiometricAuthentication (3.1.2)
+  - BiometricAuthentication (3.1.3)
   - CircleProgressBar (0.32)
   - CocoaImageHashing (1.8.0)
-  - Firebase/Analytics (6.32.0):
+  - FBSDKCoreKit (8.0.0):
+    - FBSDKCoreKit/Basics (= 8.0.0)
+    - FBSDKCoreKit/Core (= 8.0.0)
+  - FBSDKCoreKit/Basics (8.0.0)
+  - FBSDKCoreKit/Core (8.0.0):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (8.0.0):
+    - FBSDKLoginKit/Login (= 8.0.0)
+  - FBSDKLoginKit/Login (8.0.0):
+    - FBSDKCoreKit (~> 8.0.0)
+  - FBSDKShareKit (8.0.0):
+    - FBSDKShareKit/Share (= 8.0.0)
+  - FBSDKShareKit/Share (8.0.0):
+    - FBSDKCoreKit (~> 8.0.0)
+  - Firebase/Analytics (6.34.0):
     - Firebase/Core
-  - Firebase/Core (6.32.0):
+  - Firebase/Core (6.34.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 6.8.1)
-  - Firebase/CoreOnly (6.32.0):
-    - FirebaseCore (= 6.10.2)
-  - Firebase/RemoteConfig (6.32.0):
+    - FirebaseAnalytics (= 6.9.0)
+  - Firebase/CoreOnly (6.34.0):
+    - FirebaseCore (= 6.10.4)
+  - Firebase/RemoteConfig (6.34.0):
     - Firebase/CoreOnly
-    - FirebaseRemoteConfig (~> 4.9.0)
+    - FirebaseRemoteConfig (~> 4.9.1)
   - FirebaseABTesting (4.2.0):
     - FirebaseCore (~> 6.10)
-  - FirebaseAnalytics (6.8.1):
+  - FirebaseAnalytics (6.9.0):
     - FirebaseCore (~> 6.10)
-    - FirebaseInstallations (~> 1.6)
-    - GoogleAppMeasurement (= 6.8.1)
+    - FirebaseInstallations (~> 1.7)
+    - GoogleAppMeasurement (= 6.9.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
     - GoogleUtilities/MethodSwizzler (~> 6.7)
     - GoogleUtilities/Network (~> 6.7)
     - "GoogleUtilities/NSData+zlib (~> 6.7)"
     - nanopb (~> 1.30906.0)
-  - FirebaseCore (6.10.2):
+  - FirebaseCore (6.10.4):
     - FirebaseCoreDiagnostics (~> 1.6)
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
-  - FirebaseCoreDiagnostics (1.6.0):
-    - GoogleDataTransport (~> 7.2)
+  - FirebaseCoreDiagnostics (1.7.0):
+    - GoogleDataTransport (~> 7.4)
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
     - nanopb (~> 1.30906.0)
@@ -38,24 +52,24 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/UserDefaults (~> 6.7)
     - PromisesObjC (~> 1.2)
-  - FirebaseRemoteConfig (4.9.0):
+  - FirebaseRemoteConfig (4.9.1):
     - FirebaseABTesting (~> 4.2)
     - FirebaseCore (~> 6.10)
     - FirebaseInstallations (~> 1.6)
     - GoogleUtilities/Environment (~> 6.7)
     - "GoogleUtilities/NSData+zlib (~> 6.7)"
-  - Google-Mobile-Ads-SDK (7.65.0):
+  - Google-Mobile-Ads-SDK (7.66.0):
     - GoogleAppMeasurement (~> 6.0)
     - GoogleUserMessagingPlatform (~> 1.1)
-  - GoogleAppMeasurement (6.8.1):
+  - GoogleAppMeasurement (6.9.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
     - GoogleUtilities/MethodSwizzler (~> 6.7)
     - GoogleUtilities/Network (~> 6.7)
     - "GoogleUtilities/NSData+zlib (~> 6.7)"
     - nanopb (~> 1.30906.0)
-  - GoogleDataTransport (7.3.0):
+  - GoogleDataTransport (7.5.1):
     - nanopb (~> 1.30906.0)
-  - GoogleUserMessagingPlatform (1.1.0)
+  - GoogleUserMessagingPlatform (1.2.0)
   - GoogleUtilities/AppDelegateSwizzler (6.7.2):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -75,17 +89,18 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.7.2):
     - GoogleUtilities/Logger
-  - JGProgressHUD (2.1)
+  - JGProgressHUD (2.2)
   - nanopb (1.30906.0):
     - nanopb/decode (= 1.30906.0)
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - ObjectMapper (4.2.0)
-  - PromisesObjC (1.2.10)
+  - PromisesObjC (1.2.11)
   - RLBAlertsPickers (1.1.2)
-  - SwiftDate (6.1.0)
-  - SwiftyContacts (3.0.14)
+  - SwiftDate (6.2.0)
+  - SwiftyContacts (3.0.16)
+  - SwiftyStoreKit (0.16.1)
   - SwiftyUserDefaults (5.0.0)
   - YandexMobileMetrica/Dynamic (3.11.1):
     - YandexMobileMetrica/Dynamic/Core (= 3.11.1)
@@ -99,6 +114,9 @@ DEPENDENCIES:
   - BiometricAuthentication
   - CircleProgressBar (~> 0.32)
   - CocoaImageHashing (from `https://github.com/ameingast/cocoaimagehashing.git`)
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKShareKit
   - Firebase/Analytics
   - Firebase/RemoteConfig
   - Google-Mobile-Ads-SDK
@@ -107,6 +125,7 @@ DEPENDENCIES:
   - RLBAlertsPickers (~> 1.1.1)
   - SwiftDate
   - SwiftyContacts
+  - SwiftyStoreKit
   - SwiftyUserDefaults
   - YandexMobileMetrica/Dynamic (= 3.11.1)
 
@@ -115,6 +134,9 @@ SPEC REPOS:
     - Alertift
     - BiometricAuthentication
     - CircleProgressBar
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - FBSDKShareKit
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -134,6 +156,7 @@ SPEC REPOS:
     - RLBAlertsPickers
     - SwiftDate
     - SwiftyContacts
+    - SwiftyStoreKit
     - SwiftyUserDefaults
     - YandexMobileMetrica
 
@@ -148,31 +171,35 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alertift: 950483ca193717cc8bb508a7dbbe34f4af321daf
-  BiometricAuthentication: 36445f3ab77699489f91995bed887be89890afac
+  BiometricAuthentication: b63d51be9260ba94165e032829ae78f074b129df
   CircleProgressBar: 3920079be5224b62b3d9ed6eeb23ac01c835b681
   CocoaImageHashing: a6a167d657a11b9284dfb37c92377abfd57a254b
-  Firebase: afa030f17f5421810f379a42b0e5d3302d27eb26
+  FBSDKCoreKit: 9d27fe97a2fa2abe5eeefea8240e837623ab88e0
+  FBSDKLoginKit: 2cbaf5405379731b22f2ebc224f7c30f62378171
+  FBSDKShareKit: bf3705fc42b660c3da9f15223db791b3c9c2acde
+  Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
   FirebaseABTesting: 8a9d8df3acc2b43f4a22014ddf9f601bca6af699
-  FirebaseAnalytics: a4d98464f455f5056063932123fa441025322f30
-  FirebaseCore: 1d697bb944bf2af5fc248f1a66e165c9dd88bf97
-  FirebaseCoreDiagnostics: 7415bfb3883b3500c5a95c42b6ba66baae78f600
+  FirebaseAnalytics: 3bb096873ee0d7fa4b6c70f5e9166b6da413cc7f
+  FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
+  FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
-  FirebaseRemoteConfig: e40f9e084658210c4d9c341cfa9f6cab6ad4f67e
-  Google-Mobile-Ads-SDK: af735e001ee534d9dd2ce0a87cd8c355b19844b5
-  GoogleAppMeasurement: e3618c6e9f5166a6b320b03b759da3b04ec2a101
-  GoogleDataTransport: e85fb700c9b027079ce182c3d08e12e0f9618bb4
-  GoogleUserMessagingPlatform: 9dc714d2e1f0aa727b9cc52d266dc1b155f4c3f2
+  FirebaseRemoteConfig: 35a729305f254fb15a2e541d4b36f3a379da7fdc
+  Google-Mobile-Ads-SDK: 7d7074359c040f5add4e0963bf860e14690060d0
+  GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
+  GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
+  GoogleUserMessagingPlatform: c85530d930ba509583aa5a6d50a10aca22cf8502
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
-  JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
+  JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
+  PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   RLBAlertsPickers: 2548943b0cb16620904cbd926a645362d1b43963
-  SwiftDate: fa2bb3962056bb44047b4b85a30044e5eae30b03
-  SwiftyContacts: b1cc26a9bed08d3b1ff4ac19cebf5913e1362729
+  SwiftDate: d117c3eb6beed72e47d3f4d1e3bc63fa1e66d7c3
+  SwiftyContacts: c02b7908cfd18505c004a43162fd7b63218d2ba0
+  SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
   YandexMobileMetrica: e985e1f77e405390a2d13f11741d86ff2f00c4ce
 
-PODFILE CHECKSUM: aa34b17e4fd22195b6355759309494da2fde50a9
+PODFILE CHECKSUM: 1152ee89e3ceaefc4ae0c7b97ed5f2eb98e1591f
 
 COCOAPODS: 1.9.3

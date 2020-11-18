@@ -486,7 +486,7 @@ final public class TelegramPickerViewController: UIViewController {
         Log("status = \(PHPhotoLibrary.authorizationStatus())")
         switch PHPhotoLibrary.authorizationStatus() {
             
-        case .notDetermined, .limited:
+        case .notDetermined:
             /// This case means the user is prompted for the first time for allowing contacts
             Assets.requestAccess { [unowned self] status in
                 self.checkStatus()

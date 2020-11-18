@@ -20,4 +20,9 @@ pod 'Firebase/RemoteConfig'
 pod 'YandexMobileMetrica/Dynamic', '3.11.1'
 pod 'Google-Mobile-Ads-SDK'
 pod 'CircleProgressBar', '~> 0.32’
+ pod 'FBSDKCoreKit', :modular_headers => true
+ pod 'FBSDKLoginKit'
+ pod 'FBSDKShareKit'
+ pod 'SwiftyStoreKit'
+
 end

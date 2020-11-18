@@ -11,31 +11,34 @@ import JGProgressHUD
 import GoogleMobileAds
 
 class BaseController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     // MARK: - AdMob
     lazy var banner: GADBannerView = {
         let banner = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         banner.translatesAutoresizingMaskIntoConstraints = false
-        banner.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        banner.adUnitID = "ca-app-pub-8003021318299677/5699240628"
+//        banner.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         banner.rootViewController = self
         return banner
     }()
     lazy var inter: GADInterstitial = {
-        let inter = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        let inter = GADInterstitial(adUnitID: "ca-app-pub-8003021318299677/3073077285")
+//        let inter = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
         return inter
     }()
     // MARK: - Properties
     private lazy var progressHUD: JGProgressHUD = {
         let hud = JGProgressHUD(style: .light)
         hud.textLabel.font = UIFont(name: "SFUIText-Regular", size: 17)
-        hud.textLabel.textColor = UIColor.black
-        hud.contentView.backgroundColor = UIColor(named: "hud")
+        hud.textLabel.textColor = UIColor(named: "text")
+        hud.contentView.backgroundColor = .white
         return hud
     }()
     private lazy var HUD: JGProgressHUD = {
         let hud = JGProgressHUD(style: .light)
         hud.textLabel.font = UIFont(name: "SFUIText-Regular", size: 17)
-        hud.textLabel.textColor = UIColor.black
-        hud.contentView.backgroundColor = UIColor(named: "hud")
+        hud.textLabel.textColor = UIColor(named: "text")
+        hud.contentView.backgroundColor = .white
         hud.indicatorView = JGProgressHUDErrorIndicatorView()
         return hud
     }()
@@ -44,10 +47,16 @@ class BaseController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAllUI()
-        // AdMob
-        banner.load(GADRequest())
-        inter.load(GADRequest())
-        addBanner()
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if UserDefService.takeValue("isPro") == false {
+            // AdMob
+            banner.load(GADRequest())
+            inter.load(GADRequest())
+            addBanner()
+        }
     }
     
     // MARK: - Methods

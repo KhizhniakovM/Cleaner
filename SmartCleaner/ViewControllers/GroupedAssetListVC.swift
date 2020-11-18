@@ -25,28 +25,35 @@ class GroupedAssetListVC: BaseController{
     weak var delegate: GroupedAssetListDelegate?
     public var assetGroups: [PHAssetGroup] = []
     private var checkedPhotos: [PHAsset] = []
+    private var assetsCount: Int = 0
     var smartClean: Bool?
+    var isVideos: Bool = false
     let columnLayout = ColumnFlowLayout(
-        cellsPerRow: 3,
-        minimumInteritemSpacing: 10,
-        minimumLineSpacing: 10,
-        sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        cellsPerRow: 4,
+        minimumInteritemSpacing: 1,
+        minimumLineSpacing: 1,
+        sectionInset: UIEdgeInsets(top: 0.5, left: 0.5, bottom: 0.5, right: 0.5)
     )
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        for i in assetGroups {
+            assetsCount += i.assets.count
+        }
         setupCollectionView()
         self.navbar.topItem?.title = "Nothing selected"
     }
     
     // MARK: - Methods
     private func openPaywall() {
+        guard UserDefService.takeValue("isPro") == false else { return }
         guard smartClean ?? false else { return }
         self.performSegue(withIdentifier: "SubscriptionSegue", sender: self)
     }
     fileprivate func setupCollectionView() {
         collectionView.register(UINib(nibName: "PhotoCell", bundle: nil), forCellWithReuseIdentifier: "PhotoCell")
+        collectionView.register(CollectionReusableView.nib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionReusableView.identifire)
         collectionView.delegate = self
         collectionView.dataSource = self
         columnLayout.headerReferenceSize = CGSize(width: self.view.frame.width, height: 40.0)
@@ -108,7 +115,14 @@ class GroupedAssetListVC: BaseController{
     }
 }
 // MARK: - Extensions
-extension GroupedAssetListVC: UICollectionViewDelegate, UICollectionViewDataSource{
+extension GroupedAssetListVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if section == assetGroups.count - 1 {
+        return CGSize(width: self.view.frame.width, height: 100)
+        } else {
+        return CGSize(width: 0, height: 0)
+        }
+    }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return assetGroups.count
     }
@@ -143,6 +157,14 @@ extension GroupedAssetListVC: UICollectionViewDelegate, UICollectionViewDataSour
                 self.collectionView.reloadSections(IndexSet(integer: indexPath.section))
             }
             return reusableview
+        case UICollectionView.elementKindSectionFooter:
+                guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionReusableView.identifire, for: indexPath) as? CollectionReusableView else { fatalError() }
+            if !isVideos {
+                view.numberOfPhotos.text = "\(assetsCount) photos"
+            } else {
+                view.numberOfPhotos.text = "\(assetsCount) videos"
+            }
+                return view
         default:  fatalError("Unexpected element kind")
         }
     }

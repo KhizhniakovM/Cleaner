@@ -12,7 +12,9 @@ import Contacts
 
 class ScanManager {
     // MARK: - Methods
-    public static func start(_ options: [Options], from dateFrom: String, to dateTo: String,
+    var mediaManager = MediaManager()
+    
+    public func start(_ options: [Options], from dateFrom: String, to dateTo: String,
                              
                              handler: @escaping ([Options]) -> Void,
                              similarPhotos: @escaping ([PHAssetGroup]) -> Void,
@@ -22,92 +24,91 @@ class ScanManager {
                              emptyContacts: @escaping ([CNContactSection]) -> Void,
                              duplicateContacts: @escaping ([CNContactSection]) -> Void,
                              completion: @escaping () -> Void) {
-        var result = 0
-        handler(options)
-        DispatchQueue.global(qos: .background).async{
-            if options.contains(.similarPhotos){
-                MediaManager.loadDuplicatePhotos(from: dateFrom, to: dateTo) { x in
-                    similarPhotos(x)
-                    result += 1
+            var result = 0
+            handler(options)
+            DispatchQueue.global(qos: .background).async{
+                if options.contains(.similarPhotos){
+                    self.mediaManager.loadDuplicatePhotos(from: dateFrom, to: dateTo) { x in
+                        similarPhotos(x)
+                        result += 1
+                        if result == 6 {
+                            completion()
+                        }
+                    }
+                } else { result += 1
                     if result == 6 {
                         completion()
                     }
                 }
-            } else { result += 1
-                if result == 6 {
-                    completion()
-                }
-            }
-            if options.contains(.similarLivePhotos){
-                MediaManager.loadSimilarPhotos(from: dateFrom, to: dateTo, live: true, { x in
-                    similarLivePhotos(x)
-                    result += 1
-                    if result == 6 {
-                        completion()
-                    }
-                })
-            } else { result += 1
-                if result == 6 {
-                    completion()
-                }
-            }
-            if options.contains(.screenshots){
-                MediaManager.loadScreenshotPhotos(from: dateFrom, to: dateTo) { (x) in
-                    screenshots(x)
-                    result += 1
+                if options.contains(.similarLivePhotos){
+                    MediaManager.loadSimilarPhotos(from: dateFrom, to: dateTo, live: true, { x in
+                        similarLivePhotos(x)
+                        result += 1
+                        if result == 6 {
+                            completion()
+                        }
+                    })
+                } else { result += 1
                     if result == 6 {
                         completion()
                     }
                 }
-            } else { result += 1
-                if result == 6 {
-                    completion()
-                }
-            }
-            if options.contains(.relatedVideos){
-                MediaManager.loadSimilarVideos(from: dateFrom, to: dateTo, {x in
-                    videos(x)
-                    result += 1
-                    if result == 6 {
-                        completion()
+                if options.contains(.screenshots){
+                    MediaManager.loadScreenshotPhotos(from: dateFrom, to: dateTo) { (x) in
+                        screenshots(x)
+                        result += 1
+                        if result == 6 {
+                            completion()
+                        }
                     }
-                })
-            } else { result += 1
-                if result == 6 {
-                    completion()
-                }
-            }
-            if options.contains(.emptyContacts){
-                ContactManager.loadContacts { (contacts) in
-                    emptyContacts(ContactManager.loadIncompletedByPhone(contacts))
-                    result += 1
+                } else { result += 1
                     if result == 6 {
                         completion()
                     }
                 }
-            } else { result += 1
-                if result == 6 {
-                    completion()
-                }
-            }
-            if options.contains(.duplicateContacts){
-                ContactManager.loadContacts { (contacts) in
-                    duplicateContacts(ContactManager.loadDuplicateSectionsByPhone(ContactManager.loadDuplicatesByPhone(contacts)))
-                    result += 1
+                if options.contains(.relatedVideos){
+                    MediaManager.loadSimilarVideos(from: dateFrom, to: dateTo, {x in
+                        videos(x)
+                        result += 1
+                        if result == 6 {
+                            completion()
+                        }
+                    })
+                } else { result += 1
                     if result == 6 {
                         completion()
                     }
                 }
-            } else { result += 1
-                if result == 6 {
-                    completion()
+                if options.contains(.emptyContacts){
+                    ContactManager.loadContacts { (contacts) in
+                        emptyContacts(ContactManager.loadIncompletedByPhone(contacts))
+                        result += 1
+                        if result == 6 {
+                            completion()
+                        }
+                    }
+                } else { result += 1
+                    if result == 6 {
+                        completion()
+                    }
+                }
+                if options.contains(.duplicateContacts){
+                    ContactManager.loadContacts { (contacts) in
+                        duplicateContacts(ContactManager.loadDuplicateSectionsByPhone(ContactManager.loadDuplicatesByPhone(contacts)))
+                        result += 1
+                        if result == 6 {
+                            completion()
+                        }
+                    }
+                } else { result += 1
+                    if result == 6 {
+                        completion()
+                    }
                 }
             }
         }
-        
     }
     
-}
 
 // MARK: - Options
 public enum Options {

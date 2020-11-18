@@ -30,7 +30,6 @@ class SettingsVC: BaseController {
         super.viewDidLoad()
         setupButtons()
         remoteConfig = RemoteManager.remoteConfig()
-        // setupToggles()
     }
     
     // MARK: - Methods

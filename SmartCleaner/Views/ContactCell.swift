@@ -12,10 +12,14 @@ class ContactCell: UITableViewCell {
     @IBOutlet weak var contactNameLabel: UILabel!
     @IBOutlet weak var checkMarkView: UIImageView!
     
-    public var isChecked: Bool = false{
-        didSet{
-            checkMarkView.isHidden = !isChecked
+    public var isChecked: Bool = false {
+        willSet { if newValue == true {
+            checkMarkView.image = UIImage(named: "fullCircle")
+        } else {
+            checkMarkView.image = UIImage(named: "emptyCircle")
         }
+        }
+        
     }
     
     override func awakeFromNib() {

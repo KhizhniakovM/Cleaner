@@ -19,6 +19,7 @@ class ScanSearchVC: BaseController {
     
     // MARK: - Properties
     var scanOptions: [Options]?
+    var scanManager = ScanManager()
     
     var dateTo: String?
     var dateFrom: String?
@@ -29,6 +30,7 @@ class ScanSearchVC: BaseController {
     var videos: [PHAssetGroup]?
     var contacts: [CNContactSection]?
     var sections: [CNContactSection]?
+    var allPhotos = 0
     
     var vc: UIViewController?
     
@@ -36,33 +38,47 @@ class ScanSearchVC: BaseController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
+        setupUIforIt()
         startScan()
+        scanManager.mediaManager.delegate = self
+        MediaManager.fetchPhotoCount(from: dateFrom!, to: dateTo!) { (x) in
+            self.allPhotos = x
+        }
     }
     
     // MARK: - Methods
-    private func setupUI() {
-        circleProgressView.hintTextFont = UIFont(name: "SFUIText-Bold", size: 20)
+    private func setupUIforIt() {
+        circleProgressView.hintTextFont = UIFont(name: "SFUIText-Medium", size: 45)
         searchLabel.text = "Searching..."
     }
     
     private func startScan() {
         guard let scanOptions = scanOptions, let dateTo = dateTo, let dateFrom = dateFrom else { return }
-        ScanManager.start(scanOptions, from: dateFrom, to: dateTo,
+        scanManager.start(scanOptions, from: dateFrom, to: dateTo,
                           handler: {self.scanOptions = $0},
-                          similarPhotos: {self.similarPhotos = $0; self.circleProgressView.setProgress(0.6, animated: true, duration: 0.5)},
-                          similarLivePhotos: {self.similarLivePhotos = $0; self.circleProgressView.setProgress(0.6, animated: true, duration: 0.5)},
-                          screenshots: {self.screenshots = $0; self.circleProgressView.setProgress(0.2, animated: true, duration: 0.5) },
-                          videos: {self.videos = $0; self.circleProgressView.setProgress(0.3, animated: true, duration: 0.5)},
+                          similarPhotos: {self.similarPhotos = $0
+                            if self.circleProgressView.progress < 0.5 {
+                                self.circleProgressView.setProgress(0.66, animated: true, duration: 4)}},
+                          similarLivePhotos: {self.similarLivePhotos = $0
+                            if self.circleProgressView.progress < 0.5 {
+                                self.circleProgressView.setProgress(0.66, animated: true, duration: 4)}},
+                          screenshots: {self.screenshots = $0
+                            if self.circleProgressView.progress < 0.3 {
+                                self.circleProgressView.setProgress(0.33, animated: true, duration: 2)} },
+                          videos: {self.videos = $0
+                            if self.circleProgressView.progress < 0.3 {
+                                self.circleProgressView.setProgress(0.33, animated: true, duration: 2)}},
                           emptyContacts: {self.sections = $0},
                           duplicateContacts: {self.contacts = $0}) {
-            self.circleProgressView.setProgress(1, animated: true, duration: 1)
-            DispatchQueue.main.async {
-                self.searchLabel.text = "Finish!"
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.performSegue(withIdentifier: "ScanResultSegue", sender: nil)
-            }
+                            DispatchQueue.main.async {
+                                self.circleProgressView.setProgress(1, animated: true, duration: 1.5)
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                self.searchLabel.text = "Finish!"
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                self.performSegue(withIdentifier: "ScanResultSegue", sender: nil)
+                            }
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -77,6 +93,12 @@ class ScanSearchVC: BaseController {
         vc?.contacts = self.contacts
         vc?.sections = self.sections
     }
+}
 
-    
+extension ScanSearchVC: MediaManagerDelegate {
+    func showPercentage(number: Int) {
+        DispatchQueue.main.async {
+            self.searchLabel.text = "Check photo \(number)/\(self.allPhotos)"
+        }
+    }
 }

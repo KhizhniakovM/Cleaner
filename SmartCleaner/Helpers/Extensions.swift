@@ -311,7 +311,9 @@ extension String{
 }
 extension CNContact{
     func getTitle() -> String{
-        if !self.givenName.isEmpty{
+        if !self.givenName.isEmpty && !self.familyName.isEmpty {
+            return self.givenName + " " + self.familyName
+        } else if !self.givenName.isEmpty{
             return self.givenName
         }
         else if self.phoneNumbers.count != 0{

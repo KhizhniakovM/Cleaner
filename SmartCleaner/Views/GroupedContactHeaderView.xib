@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,20 +21,20 @@
                         <label opaque="NO" userInteractionEnabled="NO" tag="404" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+21321312" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLG-mu-LLu">
                             <rect key="frame" x="0.0" y="0.0" width="85" height="30"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                            <color key="textColor" name="main"/>
+                            <color key="textColor" name="text"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select all" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMv-LF-Tbs">
                             <rect key="frame" x="328" y="0.0" width="69" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" name="main"/>
+                            <color key="textColor" name="text"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" name="line"/>
+            <color key="backgroundColor" name="cell"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="WWV-Rb-9Vs" secondAttribute="trailing" constant="15" id="DSe-w7-EhC"/>
                 <constraint firstAttribute="bottom" secondItem="WWV-Rb-9Vs" secondAttribute="bottom" constant="5" id="DdV-lO-qbr"/>
@@ -48,11 +48,11 @@
         </view>
     </objects>
     <resources>
-        <namedColor name="line">
-            <color red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="cell">
+            <color red="0.23921568627450981" green="0.12941176470588237" blue="0.42352941176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="main">
-            <color red="0.25098039215686274" green="0.4823529411764706" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="text">
+            <color red="0.47058823529411764" green="0.23921568627450981" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

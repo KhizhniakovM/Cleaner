@@ -9,7 +9,11 @@
 /* Begin PBXBuildFile section */
 		55EC5791BD1236E823528620 /* Pods_SmartCleaner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07D1D1760AAF6498A614866 /* Pods_SmartCleaner.framework */; };
 		880D6C27250F799800743415 /* ScanSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D6C26250F799800743415 /* ScanSearchVC.swift */; };
-		88263FEC24F8E4CB00D2C62C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88263FEB24F8E4CB00D2C62C /* GoogleService-Info.plist */; };
+		880F32FC253457ED00D46F4D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 880F32FB253457ED00D46F4D /* GoogleService-Info.plist */; };
+		885097A1253D8D8F005193A7 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885097A0253D8D8F005193A7 /* ContactViewController.swift */; };
+		8884D92325382A03001B25A6 /* CollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8884D92125382A03001B25A6 /* CollectionReusableView.swift */; };
+		8884D92425382A03001B25A6 /* CollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8884D92225382A03001B25A6 /* CollectionReusableView.xib */; };
+		8884D9472538398D001B25A6 /* CircleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8884D9462538398D001B25A6 /* CircleProgressView.swift */; };
 		88A7F1FD24F8E63B007C06C5 /* RemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A7F1FC24F8E63B007C06C5 /* RemoteManager.swift */; };
 		88B4BBBE24F7BDD300C63943 /* ContactEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4BBBD24F7BDD300C63943 /* ContactEntity.swift */; };
 		88C3BE9024FD13CC001B529C /* ScanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C3BE8F24FD13CC001B529C /* ScanGestureRecognizer.swift */; };
@@ -62,7 +66,11 @@
 
 /* Begin PBXFileReference section */
 		880D6C26250F799800743415 /* ScanSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanSearchVC.swift; sourceTree = "<group>"; };
-		88263FEB24F8E4CB00D2C62C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		880F32FB253457ED00D46F4D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		885097A0253D8D8F005193A7 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
+		8884D92125382A03001B25A6 /* CollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
+		8884D92225382A03001B25A6 /* CollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionReusableView.xib; sourceTree = "<group>"; };
+		8884D9462538398D001B25A6 /* CircleProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgressView.swift; sourceTree = "<group>"; };
 		88A7F1FC24F8E63B007C06C5 /* RemoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteManager.swift; sourceTree = "<group>"; };
 		88B4BBBD24F7BDD300C63943 /* ContactEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactEntity.swift; sourceTree = "<group>"; };
 		88C3BE8F24FD13CC001B529C /* ScanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -184,6 +192,7 @@
 				88CD8FCB24F665310004EA5B /* ContactListVC.swift */,
 				88CD8FC424F665310004EA5B /* DuplicateContactListVC.swift */,
 				88CD8FCA24F665310004EA5B /* IncompleteContactListVC.swift */,
+				885097A0253D8D8F005193A7 /* ContactViewController.swift */,
 				88CD8FC824F665310004EA5B /* SubscriptionController.swift */,
 				88CD8FCE24F665310004EA5B /* StartScanVC.swift */,
 				880D6C26250F799800743415 /* ScanSearchVC.swift */,
@@ -199,13 +208,16 @@
 				88CD8FEA24F665430004EA5B /* GroupedAssetHeaderView.swift */,
 				88CD8FEB24F665430004EA5B /* PhotoCell.swift */,
 				88CD8FEC24F665430004EA5B /* ContactCell.swift */,
+				88CD8FEF24F665430004EA5B /* ContactCell.xib */,
 				88CD8FED24F665430004EA5B /* PhotoCell.xib */,
 				88CD8FEE24F665430004EA5B /* GroupedContactHeaderView.swift */,
-				88CD8FEF24F665430004EA5B /* ContactCell.xib */,
 				88CD8FF024F665430004EA5B /* GroupedContactHeaderView.xib */,
 				88CD8FF224F665430004EA5B /* ColumnFlowLayout.swift */,
 				88EBF13A250F91A800528061 /* ScanResultTableViewCell.swift */,
 				88EBF13B250F91A800528061 /* ScanResultTableViewCell.xib */,
+				8884D92125382A03001B25A6 /* CollectionReusableView.swift */,
+				8884D92225382A03001B25A6 /* CollectionReusableView.xib */,
+				8884D9462538398D001B25A6 /* CircleProgressView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,7 +279,7 @@
 				96DB048A247460330021CC0A /* LaunchScreen.storyboard */,
 				88CD8FC124F665150004EA5B /* SmartCleaner.entitlements */,
 				96DB048D247460330021CC0A /* Info.plist */,
-				88263FEB24F8E4CB00D2C62C /* GoogleService-Info.plist */,
+				880F32FB253457ED00D46F4D /* GoogleService-Info.plist */,
 			);
 			path = SmartCleaner;
 			sourceTree = "<group>";
@@ -349,13 +361,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				880F32FC253457ED00D46F4D /* GoogleService-Info.plist in Resources */,
+				8884D92425382A03001B25A6 /* CollectionReusableView.xib in Resources */,
 				88CD900424F66B290004EA5B /* SFUIText-Bold.ttf in Resources */,
 				88CD8FF624F665430004EA5B /* PhotoCell.xib in Resources */,
 				88EBF13D250F91A800528061 /* ScanResultTableViewCell.xib in Resources */,
 				96DB048C247460330021CC0A /* LaunchScreen.storyboard in Resources */,
 				96DB0489247460330021CC0A /* Assets.xcassets in Resources */,
 				88CD900624F66B290004EA5B /* SFUIText-Medium.ttf in Resources */,
-				88263FEC24F8E4CB00D2C62C /* GoogleService-Info.plist in Resources */,
 				88CD900824F66D150004EA5B /* Colors.xcassets in Resources */,
 				88CD900524F66B290004EA5B /* SFUIText-Heavy.ttf in Resources */,
 				88CD901324F6A2CE0004EA5B /* SFUIText-Regular.ttf in Resources */,
@@ -422,6 +435,7 @@
 				88CD8FDF24F665310004EA5B /* SettingsVC.swift in Sources */,
 				88CD8FD824F665310004EA5B /* AssetListVC.swift in Sources */,
 				88CD8FDC24F665310004EA5B /* BaseController.swift in Sources */,
+				885097A1253D8D8F005193A7 /* ContactViewController.swift in Sources */,
 				88CD8FE224F665310004EA5B /* SplashController.swift in Sources */,
 				88CD8FD724F665310004EA5B /* DuplicateContactListVC.swift in Sources */,
 				88CD8FE724F665310004EA5B /* NavigationController.swift in Sources */,
@@ -430,6 +444,7 @@
 				88CD8FBF24F664DE0004EA5B /* Extensions.swift in Sources */,
 				88C3BE9024FD13CC001B529C /* ScanGestureRecognizer.swift in Sources */,
 				88CD8FF524F665430004EA5B /* ContactCell.swift in Sources */,
+				8884D9472538398D001B25A6 /* CircleProgressView.swift in Sources */,
 				88CD8FE624F665310004EA5B /* MediaListVC.swift in Sources */,
 				88B4BBBE24F7BDD300C63943 /* ContactEntity.swift in Sources */,
 				88CD8FD624F665310004EA5B /* PhotoVC.swift in Sources */,
@@ -446,6 +461,7 @@
 				88CD8FBB24F664DE0004EA5B /* ContactManager.swift in Sources */,
 				88CD8FE524F665310004EA5B /* GroupedAssetListVC.swift in Sources */,
 				88CD8FBC24F664DE0004EA5B /* MediaManager.swift in Sources */,
+				8884D92325382A03001B25A6 /* CollectionReusableView.swift in Sources */,
 				88CD8FC024F664DE0004EA5B /* FilesManager.swift in Sources */,
 				88CD8FE124F665310004EA5B /* StartScanVC.swift in Sources */,
 				88CD901024F67EF80004EA5B /* PageThreeViewController.swift in Sources */,
@@ -594,16 +610,18 @@
 			baseConfigurationReference = C181417B4BFA2E8E2EE82C74 /* Pods-SmartCleaner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XJQKZ9Q6B2;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = 6K3523DDQS;
 				INFOPLIST_FILE = SmartCleaner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.khizhniakovma.smartCleaner;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ioscleaner.proalexst;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = iosCleanerDevelopment;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -614,16 +632,18 @@
 			baseConfigurationReference = D9ADD5C8E8F673A299B47076 /* Pods-SmartCleaner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XJQKZ9Q6B2;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = 6K3523DDQS;
 				INFOPLIST_FILE = SmartCleaner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.khizhniakovma.smartCleaner;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ioscleaner.proalexst;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = iosCleanerDevelopment;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

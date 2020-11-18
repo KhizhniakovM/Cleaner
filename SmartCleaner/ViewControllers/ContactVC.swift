@@ -13,7 +13,7 @@ import CloudKit
 
 class ContactVC: BaseController {
     // MARK: - UI
-    @IBOutlet weak var iCloudView: UIView!
+//    @IBOutlet weak var iCloudView: UIView!
     @IBOutlet weak var incompleteNumberMailBlock: UIView!
     @IBOutlet weak var incompleteNumberBlock: UIView!
     @IBOutlet weak var incompleteNameBlock: UIView!

@@ -11,11 +11,19 @@ import Photos
 import CocoaImageHashing
 import SwiftyUserDefaults
 import SwiftDate
+import Photos
+
+protocol MediaManagerDelegate: class {
+    func showPercentage(number: Int)
+}
 
 class MediaManager {
+    
+    weak var delegate: MediaManagerDelegate?
     // MARK: - Methods
-    public static func loadDuplicatePhotos(from dateFrom: String = "01-01-1970", to dateTo: String = "01-01-2030", _ handler: @escaping((_ assets: [PHAssetGroup]) -> Void)){
-        fetchPhotos(from: dateFrom, to: dateTo, live: false) { photoInAlbum in
+
+    public func loadDuplicatePhotos(from dateFrom: String = "01-01-1970", to dateTo: String = "01-01-2030", _ handler: @escaping((_ assets: [PHAssetGroup]) -> Void)){
+        MediaManager.fetchPhotos(from: dateFrom, to: dateTo, live: false) { photoInAlbum in
             var duplicatePhotos: [(asset: PHAsset, date: Int64, imageSize: Int64)] = []
             DispatchQueue.global(qos: .background).async {
                 if photoInAlbum.count == 0 {
@@ -25,6 +33,7 @@ class MediaManager {
                     return
                 }
                 for i in 1...photoInAlbum.count{
+                    self.delegate?.showPercentage(number: i)
                     duplicatePhotos.append((asset: photoInAlbum[i - 1], date: Int64(photoInAlbum[i - 1].creationDate!.timeIntervalSince1970), imageSize: photoInAlbum[i - 1].imageSize))
                 }
                 duplicatePhotos.sort(by: { duplicate1, duplicate2 in
@@ -66,7 +75,7 @@ class MediaManager {
         fetchVideos(from: dateFrom, to: dateTo) { videoInAlbum in
             DispatchQueue.global(qos: .background).async {
                 var images: [OSTuple<NSString, NSData>] = []
-                if videoInAlbum.count == 0{
+                if videoInAlbum.count == 0 {
                     DispatchQueue.main.async{
                         handler([])
                     }
@@ -83,6 +92,7 @@ class MediaManager {
                 DispatchQueue.main.async {
                     var similarVideoNumbers: [Int] = []
                     var similarVideoGroups: [PHAssetGroup] = []
+                    guard similarVideoIdsAsTuples.count >= 1 else { handler([]); return }
                     for i in 1...similarVideoIdsAsTuples.count {
                         let tuple = similarVideoIdsAsTuples[i - 1]
                         var groupAssets: [PHAsset] = []
@@ -112,7 +122,7 @@ class MediaManager {
                                 groupAssets.append(videoInAlbum[n2])
                             }
                         })
-                        if groupAssets.count >= 2{
+                        if groupAssets.count >= 1{
                             similarVideoGroups.append(PHAssetGroup(name: "", assets: groupAssets))
                         }
                     }
@@ -145,7 +155,7 @@ class MediaManager {
                 DispatchQueue.main.async{
                     var similarPhotosNumbers: [Int] = []
                     var similarPhotoGroups: [PHAssetGroup] = []
-                    guard similarImageIdsAsTuples.count > 1 else { handler([]); return }
+                    guard similarImageIdsAsTuples.count >= 1 else { handler([]); return }
                     for i in 1...similarImageIdsAsTuples.count {
                         let tuple = similarImageIdsAsTuples[i - 1]
                         var groupAssets: [PHAsset] = []
@@ -249,7 +259,7 @@ class MediaManager {
     
     private static func fetchVideos(from dateFrom: String = "01-01-1970", to dateTo: String = "01-01-2100", _ handler: @escaping ((_ result: PHFetchResult<PHAsset>) -> Void)){
         let options = PHFetchOptions()
-        let albumsPhoto: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options)
+        let albumsPhoto: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumVideos, options: options)
         options.predicate = NSPredicate(
             format: "mediaType = %d AND (creationDate >= %@) AND (creationDate <= %@)",
             PHAssetMediaType.video.rawValue,
@@ -297,9 +307,8 @@ class MediaManager {
         })
     }
     
-    public static func fetchPhotoCount(_ handler: @escaping ((_ count: Int) -> Void)){
-        fetchPhotos(live: false, {
-            result in
+    public static func fetchPhotoCount(from dateFrom: String = "01-01-1970", to dateTo: String = "01-01-2030", live: Bool = false, _ handler: @escaping ((_ count: Int) -> Void)){
+        fetchPhotos(from: dateFrom, to: dateTo, live: live, { result in
             handler(result.count)
         })
     }

@@ -30,6 +30,7 @@ class ScanResultVC: BaseController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UINib(nibName: "ScanResultTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
+        tableView.backgroundColor = UIColor(named: "back")
         return tableView
     }()
 
@@ -78,6 +79,7 @@ class ScanResultVC: BaseController {
             vc?.smartClean = true
         case "GroupedAsset3":
             let vc = segue.destination as? GroupedAssetListVC
+            vc?.isVideos = true
             vc?.assetGroups = self.videos!
             vc?.grouped = .videos
             vc?.delegate = self

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Contacts
 
-class IncompleteContactListVC: BaseController{
+class IncompleteContactListVC: BaseController, UIGestureRecognizerDelegate{
     @IBAction func onDelete(_ sender: Any) {
         ContactManager.delete(checkedContacts)
         delegate?.delete(contact: checkedContacts)
@@ -28,16 +28,24 @@ class IncompleteContactListVC: BaseController{
             self.openPaywall()
         }
     }
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     @IBOutlet weak var navbar: UINavigationBar!
     @IBOutlet weak var tableView: UITableView!
     public var sections: [CNContactSection] = []
+    public var sectionsCopy: [CNContactSection] = []
     private var checkedContacts: [CNContact] = []
     var smartClean: Bool?
+    var hide: Bool = true
     weak var delegate: IncompliteListDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
+        let textFieldInsideUISearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideUISearchBar?.textColor = UIColor.white
+        textFieldInsideUISearchBar?.font = UIFont(name: "SFUIText-Medium", size: 17)
+        self.sectionsCopy = sections
         deleteButton.isEnabled = false
         tableView.register(GroupedContactHeaderView.self, forHeaderFooterViewReuseIdentifier: "GroupedContactHeaderView")
         tableView.register(UINib(nibName: "ContactCell", bundle: nil), forCellReuseIdentifier: "ContactCell")
@@ -45,13 +53,51 @@ class IncompleteContactListVC: BaseController{
         tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorColor = UIColor(rgb: 0x616163)
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(hideCircles(sender:)))
+        longPress.delegate = self
+        longPress.delaysTouchesEnded = true
+        tableView.addGestureRecognizer(longPress)
         tableView.reloadData()
     }
+    
+    var contactForSegue: CNContact?
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? ContactViewController {
+            vc.contact = contactForSegue
+        }
+    }
+    @objc
+    private func hideCircles(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            if hide == true {
+                hide = false
+            } else {
+                hide = true
+                checkedContacts = []
+            }
+            tableView.reloadData()
+        }
+    }
     private func openPaywall() {
+        guard UserDefService.takeValue("isPro") == false else { return }
         guard smartClean ?? false else { return }
         self.performSegue(withIdentifier: "SubscriptionSegue", sender: self)
     }
 
+}
+
+extension IncompleteContactListVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        sections = sectionsCopy
+        sections = sections.filter { (section) -> Bool in
+            (section.contacts.first?.givenName.hasPrefix(searchText))!
+        }
+        tableView.reloadData()
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
 }
 extension IncompleteContactListVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -59,6 +105,7 @@ extension IncompleteContactListVC: UITableViewDelegate, UITableViewDataSource{
             withIdentifier: "GroupedContactHeaderView")! as! GroupedContactHeaderView
         header.setName(sections[section].name)
         header.onSelectAll = {
+            if !self.hide {
             guard self.sections[section].contacts.count >= 1 else { return }
             for i in 0...self.sections[section].contacts.count - 1{
                 let contact = self.sections[section].contacts[i]
@@ -71,6 +118,7 @@ extension IncompleteContactListVC: UITableViewDelegate, UITableViewDataSource{
             }
             self.deleteButton.isEnabled = self.checkedContacts.count != 0
             self.tableView.reloadSections(IndexSet(integer: section), with: .none)
+            }
         }
         return header
     }
@@ -83,6 +131,11 @@ extension IncompleteContactListVC: UITableViewDelegate, UITableViewDataSource{
         let cell: ContactCell = tableView.dequeueReusableCell(withIdentifier: "ContactCell") as! ContactCell
         cell.contactNameLabel.text = sections[indexPath.section].contacts[indexPath.row].getTitle()
         cell.isChecked = self.checkedContacts.contains(sections[indexPath.section].contacts[indexPath.row])
+        if !hide {
+            cell.checkMarkView.isHidden = false
+        } else if hide {
+            cell.checkMarkView.isHidden = true
+        }
         return cell
     }
     
@@ -119,6 +172,7 @@ extension IncompleteContactListVC: UITableViewDelegate, UITableViewDataSource{
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if !hide {
         let contact = self.sections[indexPath.section].contacts[indexPath.row]
         if self.checkedContacts.contains(contact){
             self.checkedContacts = self.checkedContacts.filter({ $0 != contact })
@@ -128,6 +182,11 @@ extension IncompleteContactListVC: UITableViewDelegate, UITableViewDataSource{
         }
         self.tableView.reloadRows(at: [indexPath], with: .none)
         deleteButton.isEnabled = self.checkedContacts.count != 0
+        } else {
+            tableView.deselectRow(at: indexPath, animated: true)
+            contactForSegue = sections[indexPath.section].contacts[indexPath.row]
+            performSegue(withIdentifier: "Contact", sender: nil)
+        }
     }
 }
 
